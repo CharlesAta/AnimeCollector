@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Anime
-from django.http import HttpResponse
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 # Create your views here.
 
@@ -17,3 +17,15 @@ def anime_index(request):
 def anime_detail(request, anime_id):
     anime = Anime.objects.get(id=anime_id)
     return render(request, 'anime/detail.html', { 'anime': anime })
+
+class AnimeCreate(CreateView):
+    model = Anime
+    fields = '__all__'
+
+class AnimeUpdate(UpdateView):
+    model = Anime
+    fields = ['release_year', 'description', 'rating']
+
+class AnimeDelete(DeleteView):
+    model = Anime
+    success_url = '/anime/'

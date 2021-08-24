@@ -14,6 +14,10 @@
         <p>Rating: Don't Ever Watch This</p>
       {% endif %}
     </div>
+    <div class="card-action">
+      <a href="{% url 'anime_update' anime.id %}">Edit</a>
+      <a href="{% url 'anime_delete' anime.id %}">Delete</a>
+    </div>
   </div>
 
 

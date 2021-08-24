@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
+from django.urls import reverse
 
 # Create your models here.
 class Anime(models.Model):
@@ -10,3 +11,6 @@ class Anime(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={"anime_id": self.id})

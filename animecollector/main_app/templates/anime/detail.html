@@ -46,6 +46,48 @@
     </table>
   </div>
 </div>
+
+<hr />
+<div class="row">
+  <div class="col s6">
+    <h3>{{ anime.title }} Merch</h3>
+    {% if anime.merch.count %} {% for m in anime.merch.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"> A {{ m.name }} for ${{ m.price }} </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'unassoc_merch' anime.id m.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Remove</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>No Merch (ó﹏ò｡)</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Merch</h3>
+    {% if merch.count %} {% for m in merch.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"> A {{ m.name }} for ${{ m.price }} </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'assoc_merch' anime.id m.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>{{anime.title}} Already Has All Merch Available</h5>
+    {% endif %}
+  </div>
+</div>
+
 <script>
   let selectEl = document.getElementById("id_recommend");
   M.FormSelect.init(selectEl);
